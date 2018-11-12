@@ -1,9 +1,44 @@
-.dropdown-item{
-    padding: 5px;
-    width: 100%;
-    margin: 0;
+.table td, .table th{
+    border: 1px solid #dee2e6;
 }
-
-.dropdown{
+.scoreBox{
+    width: 5%;
     padding: 20px;
+}
+input{
+    border: none;
+}
+input:focus{
+    outline: none;
+}
+.scoreInput{
+    width: 100%;
+    /*padding: 10px;*/
+    /*margin: auto;*/
+    text-align: center;
+}
+.holeNum{
+    width: 5%;
+    text-align: center;
+    padding: 20px;
+}
+.yards{
+    background-color: #aea8f0;
+}
+.par{
+    background-color: #84cffb;
+}
+.hole{
+    background-color: #70c0c2;
+}
+.inSP1, .in, .outSP1, .out{
+    background-color: lightgray;
+}
+.totalSP1, .total{
+    background-color: #AEA7F0;
+}
+.inScore, .outScore{
+    padding: 3px;
+    margin: 0;
+    text-align: center;
 }

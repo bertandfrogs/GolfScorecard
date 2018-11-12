@@ -1,6 +1,7 @@
 let courseCollection;
 let numPlayers = 5;
 let numHoles = 18;
+let counter = 2;
 
 (function(){
     loadDoc();
@@ -24,7 +25,7 @@ function loadDoc(){
 
 function loadCourse(courseid){
     console.log(courseid);
-    var xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if(this.readyState === 4 && this.status === 200){
             mycourse = JSON.parse(this.responseText);
@@ -42,12 +43,17 @@ function loadCourse(courseid){
 }
 
 function buildCard(){
+    // for(let i = 0; i <= )
     for(let i = 0; i <= numHoles; i++){
         // $(".card").append("<div id='column" + i + "' class='column'>" + i + "</div>");
     }
     addHoles();
 }
-
+function getYards(){
+    for(let i = 0; i < 18; i++){
+        $(".yards").append(``);
+    }
+}
 function addHoles(){
     for(let p = 1; p <= numPlayers; p++){
         for(let h = 1; h <= numHoles; h++){
@@ -56,5 +62,51 @@ function addHoles(){
     }
 }
 function addPlayer() {
-    console.log("add player please");
+    $(".table").append("<tbody class='player player"+ counter + "'>\n" +
+        "        <tr>\n" +
+        "            <td><input placeholder='Player name'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
+        "            <td><span class='inScore'>0</span></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
+        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
+        "            <td><span class='outScore'>0</span></td>\n" +
+        "            <td><span class='totalScore'>0</span></td>\n" +
+        "        </tr>\n" +
+        "    </tbody>");
+    $(".inScore").parent().css("background-color","lightgray");
+    $(".outScore").parent().css("background-color", "lightgray");
+    $(".totalScore").parent().css("background-color", "#AEA7F0");
+    counter++;
 }
+function deletePlayer(){
+    $("tbody").append("<i class='fas fa-times-circle'></i>");
+    // addEventListener("click", $(".player").remove());
+}
+//
+//
+// function addScore(playerId){
+//     let myscore = 0;
+//     //parse player number out of id
+//     for(let i = 0;){
+//         let scoreitem = $("#p" + p + "h" + i).val();
+//         myscore += scoreitem;
+//     }
+//     return myscore;
+//
+//
+// }
