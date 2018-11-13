@@ -2,6 +2,7 @@ let courseCollection;
 let numPlayers = 5;
 let numHoles = 18;
 let counter = 2;
+let id;
 
 (function(){
     loadDoc();
@@ -22,43 +23,69 @@ function loadDoc(){
     xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/", true);
     xhttp.send();
 }
-
 function loadCourse(courseid){
     console.log(courseid);
+    let id = courseid;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if(this.readyState === 4 && this.status === 200){
-            mycourse = JSON.parse(this.responseText);
+            let mycourse = JSON.parse(this.responseText);
             console.log(mycourse);
-
             let teeArray = mycourse.data.holes[0].teeBoxes;
             for(let i = 0; i < teeArray.length; i++){
+                // $("#teeSelect").empty();
                 $("#teeSelect").append("<option value='" + i + "'>" + teeArray[i].teeType + "</option>");
             }
-            buildCard();
         }
     };
     xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + courseid, true);
     xhttp.send();
 }
-
-function buildCard(){
-    // for(let i = 0; i <= )
-    for(let i = 0; i <= numHoles; i++){
-        // $(".card").append("<div id='column" + i + "' class='column'>" + i + "</div>");
-    }
-    addHoles();
+function chooseTee(tee){
+    console.log(tee);
+    getYards(tee);
 }
-function getYards(){
-    for(let i = 0; i < 18; i++){
-        $(".yards").append(``);
+function getYards(tee){
+    for(let hole = 0; hole < 9; hole++){
+        // let xhttp = new XMLHttpRequest();
+        // xhttp.onreadystatechange = function () {
+        //     if(this.readyState === 4 && this.status === 200){
+        //         let mycourse = JSON.parse(this.responseText);
+        //         console.log(mycourse);
+        //         let yards = mycourse.data.holes[hole].teeBoxes[tee].yards;
+        //         console.log("Yards: " + yards);
+        //         $(".yards").append("<th scope='col'>"+ yards +"</th>")
+        //     }
+        // };
+        // xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + id, true);
+        // xhttp.send();
+        $(".yards").append("<th scope='col'>0</th>");
     }
+    $(".yards").append("<th scope='col' class='in'></th>");
+    for(let hole = 9; hole < 18; hole++){
+        $(".yards").append("<th scope='col'>0</th>");
+    }
+    getPar();
 }
-function addHoles(){
-    for(let p = 1; p <= numPlayers; p++){
-        for(let h = 1; h <= numHoles; h++){
-            //$("#column" + h). append("<input type='text' id = 'p" + p + "h" + "'>");
-        }
+function getPar(){
+    for(let hole = 0; hole < 9; hole++){
+        // let xhttp = new XMLHttpRequest();
+        // xhttp.onreadystatechange = function () {
+        //     if(this.readyState === 4 && this.status === 200){
+        //         let mycourse = JSON.parse(this.responseText);
+        //         console.log(mycourse);
+        //         let yards = mycourse.data.holes[hole].teeBoxes[tee].yards;
+        //         console.log("Yards: " + yards);
+        //         $(".yards").append("<th scope='col'>"+ yards +"</th>")
+        //     }
+        // };
+        // xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + id, true);
+        // xhttp.send();
+        $(".par").append("<th scope='col'>0</th>");
+    }
+    $(".par").append("<th scope='col' class='in'></th>");
+    for(let hole = 9; hole < 18; hole++){
+        $(".par").append("<th scope='col'>0</th>");
     }
 }
 function addPlayer() {

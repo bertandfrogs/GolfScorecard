@@ -23,9 +23,11 @@ input:focus{
     padding: 20px;
 }
 .yards{
+    text-align: center;
     background-color: #aea8f0;
 }
 .par{
+    text-align: center;
     background-color: #84cffb;
 }
 .hole{
