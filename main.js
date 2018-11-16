@@ -44,9 +44,16 @@ function loadCourse(courseid){
     xhttp.send();
 }
 function chooseTee(tee){
+    parIn = 0;
+    parOut = 0;
+    yardsIn = 0;
+    yardsOut = 0;
     $(".yards th").remove();
     $(".par th").remove();
     $(".handicap th").remove();
+    $(".hole th").remove();
+    $(".player tr").remove();
+    $(".buttons button").remove();
     buildCard(tee);
 }
 function buildCard(tee){
