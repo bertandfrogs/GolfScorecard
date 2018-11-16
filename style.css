@@ -1,3 +1,9 @@
+#teeSelect, #courseSelect{
+    margin: 5px;
+}
+.table{
+    margin-bottom: 0;
+}
 .table td, .table th{
     border: 1px solid #dee2e6;
 }
@@ -5,6 +11,8 @@
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
+    width: 100%;
+    margin: 0;
 }
 i{
     padding-right: 5px;
@@ -54,4 +62,11 @@ input:focus{
     padding: 3px;
     margin: 0;
     text-align: center;
+}
+.relScore{
+    text-align: center;
+    background-color: #7cbbff;
+}
+button{
+    margin: 10px;
 }

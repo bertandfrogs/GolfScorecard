@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Golf Scorecard</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="main.js" defer></script>
@@ -54,6 +54,7 @@
             <th scope="col" class="labelNum">18</th>
             <th scope="col" class="out">Out</th>
             <th scope="col" class="total">Total</th>
+            <th scope="col" class="relScore">Score</th>
         </tr>
     </thead>
     <tbody class="player">
@@ -80,10 +81,12 @@
             <td class="scoreBox"><input class="scoreInput p1h18"></td>
             <td class="outScore"></td>
             <td class="totalScore total">0</td>
+            <td class="relTotal relScore">0</td>
         </tr>
     </tbody>
 </table>
 <button onclick="addPlayer()">Add Another Player</button>
 <button class="edit" onclick="deleteToggle()">Edit Players</button>
+
 </body>
 </html>

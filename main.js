@@ -3,6 +3,10 @@ let numPlayers = 1;
 let counter = 2;
 let id = 0;
 let deleteSwitch = 0;
+let parIn = 0;
+let parOut = 0;
+let yardsIn = 0;
+let yardsOut = 0;
 
 
 (function(){
@@ -14,7 +18,6 @@ function loadDoc(){
     xhttp.onreadystatechange = function () {
         if(this.readyState === 4 && this.status === 200){
             courseCollection = JSON.parse(this.responseText);
-            console.log(courseCollection);
 
             for(let i = 0; i < courseCollection.courses.length; i++){
                 $("#courseSelect").append("<option value='" + courseCollection.courses[i].id + "'>"+ courseCollection.courses[i].name +"</option>");
@@ -30,8 +33,8 @@ function loadCourse(courseid){
     xhttp.onreadystatechange = function () {
         if(this.readyState === 4 && this.status === 200){
             let mycourse = JSON.parse(this.responseText);
-            console.log(mycourse);
             let teeArray = mycourse.data.holes[0].teeBoxes;
+            $("#teeSelect").html("<option value='' selected hidden>Choose Tee</option>\n");
             for(let i = 0; i < teeArray.length; i++){
                 $("#teeSelect").append("<option value='" + i + "'>" + teeArray[i].teeType + "</option>");
             }
@@ -47,11 +50,6 @@ function chooseTee(tee){
     getData(tee);
 }
 function getData(tee){
-    let parIn = 0;
-    let parOut = 0;
-    let yardsIn = 0;
-    let yardsOut = 0;
-
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if(this.readyState === 4 && this.status === 200){
@@ -121,7 +119,8 @@ function addPlayer() {
         $(".player" + counter).append("<td class='scoreBox'><input class='scoreInput p"+ counter +"h"+ i +"'></td>");
     }
     $(player).append("<td class='outScore'></td>" +
-                                  "<td class='totalScore total'>0</td>");
+        "<td class='totalScore total'>0</td>"+
+        "<td class='relTotal relScore'>0</td>\n");
     counter++;
     numPlayers++;
     $("input").keyup(function(event){
@@ -149,11 +148,10 @@ function deletePlayer(element){
 }
 
 $("input").keyup(function(event){
-    getScores()
+    getScores();
 });
 
 function getScores(){
-    console.log(numPlayers);
     for(let player = 1; player < numPlayers + 1; player++){
         let inScore = 0;
         let outScore = 0;
@@ -171,6 +169,7 @@ function getScores(){
         $(`${whichPlayer} .inScore`).html(inScore);
         $(`${whichPlayer} .outScore`).html(outScore);
         $(`${whichPlayer} .totalScore`).html(totalScore);
+        $(`${whichPlayer} .relScore`).html(totalScore - (parIn + parOut));
     }
 }
 
