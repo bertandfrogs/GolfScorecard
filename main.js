@@ -1,6 +1,6 @@
 let courseCollection;
 let numPlayers = 1;
-let counter = 2;
+let counter = 1;
 let id = 0;
 let deleteSwitch = 0;
 let parIn = 0;
@@ -47,13 +47,14 @@ function chooseTee(tee){
     $(".yards th").remove();
     $(".par th").remove();
     $(".handicap th").remove();
-    getData(tee);
+    buildCard(tee);
 }
-function getData(tee){
+function buildCard(tee){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if(this.readyState === 4 && this.status === 200){
             let mycourse = JSON.parse(this.responseText);
+            //yards
             $(".yards").append("<th scope='col'>Yards</th>\n");
             for(let i = 0; i < 9; i++){
                 let yards = mycourse.data.holes[i].teeBoxes[tee].yards;
@@ -69,6 +70,7 @@ function getData(tee){
             $(".yards").append("<th scope='col' class='in'>"+ yardsOut +"</th>");
             $(".yards").append("<th scope='col' class='total'>"+ (yardsIn + yardsOut) +"</th>");
 
+            //par
             $(".par").append("<th scope='col'>Par</th>");
             for(let i = 0; i < 9; i++){
                 let par = mycourse.data.holes[i].teeBoxes[tee].par;
@@ -84,7 +86,7 @@ function getData(tee){
             $(".par").append("<th scope='col' class='in'>"+ parOut +"</th>");
             $(".par").append("<th scope='col' class='total'>"+ (parIn + parOut) +"</th>");
 
-
+            //handicap
             $(".handicap").append("<th scope='col'>Handicap</th>");
             for(let i = 0; i < 9; i++){
                 let hcp = mycourse.data.holes[i].teeBoxes[tee].hcp;
@@ -98,6 +100,23 @@ function getData(tee){
             $(".handicap").append("<th scope='col' class='in'></th>");
             $(".handicap").append("<th scope='col' class='total'></th>");
 
+            //hole
+            $(".hole").append("<th scope='col'>Hole</th>");
+            for(let i = 1; i < 10; i++){
+                $(".hole").append("<th scope='col' class='labelNum'>"+ i +"</th>");
+            }
+            $('.hole').append("<th scope='col' class='in'>In</th>");
+            for(let i = 10; i < 19; i++){
+                $(".hole").append("<th scope='col' class='labelNum'>"+ i +"</th>");
+            }
+            $('.hole').append("<th scope='col' class='out'>Out</th>\n" +
+                "              <th scope='col' class='total'>Total</th>\n" +
+                "              <th scope='col' class='relScore'>Score</th>");
+
+            //player1
+            addPlayer();
+            $(".buttons").append("<button onclick='addPlayer()'>Add Another Player</button>\n" +
+                "    <button class='edit' onclick='deleteToggle()'>Edit Players</button>");
         }
     };
     xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + id, true);
@@ -107,7 +126,7 @@ function getData(tee){
 function addPlayer() {
     $(".table").append("<tbody class='player'>\n" +
         "        <tr class='player"+ counter +"'>\n" +
-        "            <td class='name'><input placeholder='Player name'></td>\n"+
+        "            <td class='name'><input placeholder='Name'></td>\n"+
         "        </tr>\n" +
         "    </tbody>");
     let player = ".player" + counter;
