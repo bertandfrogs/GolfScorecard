@@ -1,8 +1,9 @@
 let courseCollection;
-let numPlayers = 5;
-let numHoles = 18;
+let numPlayers = 1;
 let counter = 2;
-let id;
+let id = 0;
+let deleteSwitch = 0;
+
 
 (function(){
     loadDoc();
@@ -24,8 +25,7 @@ function loadDoc(){
     xhttp.send();
 }
 function loadCourse(courseid){
-    console.log(courseid);
-    let id = courseid;
+    id = courseid;
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if(this.readyState === 4 && this.status === 200){
@@ -33,7 +33,6 @@ function loadCourse(courseid){
             console.log(mycourse);
             let teeArray = mycourse.data.holes[0].teeBoxes;
             for(let i = 0; i < teeArray.length; i++){
-                // $("#teeSelect").empty();
                 $("#teeSelect").append("<option value='" + i + "'>" + teeArray[i].teeType + "</option>");
             }
         }
@@ -42,98 +41,138 @@ function loadCourse(courseid){
     xhttp.send();
 }
 function chooseTee(tee){
-    console.log(tee);
-    getYards(tee);
+    $(".yards th").remove();
+    $(".par th").remove();
+    $(".handicap th").remove();
+    getData(tee);
 }
-function getYards(tee){
-    for(let hole = 0; hole < 9; hole++){
-        // let xhttp = new XMLHttpRequest();
-        // xhttp.onreadystatechange = function () {
-        //     if(this.readyState === 4 && this.status === 200){
-        //         let mycourse = JSON.parse(this.responseText);
-        //         console.log(mycourse);
-        //         let yards = mycourse.data.holes[hole].teeBoxes[tee].yards;
-        //         console.log("Yards: " + yards);
-        //         $(".yards").append("<th scope='col'>"+ yards +"</th>")
-        //     }
-        // };
-        // xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + id, true);
-        // xhttp.send();
-        $(".yards").append("<th scope='col'>0</th>");
-    }
-    $(".yards").append("<th scope='col' class='in'></th>");
-    for(let hole = 9; hole < 18; hole++){
-        $(".yards").append("<th scope='col'>0</th>");
-    }
-    getPar();
+function getData(tee){
+    let parIn = 0;
+    let parOut = 0;
+    let yardsIn = 0;
+    let yardsOut = 0;
+
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if(this.readyState === 4 && this.status === 200){
+            let mycourse = JSON.parse(this.responseText);
+            $(".yards").append("<th scope='col'>Yards</th>\n");
+            for(let i = 0; i < 9; i++){
+                let yards = mycourse.data.holes[i].teeBoxes[tee].yards;
+                $(".yards").append("<th scope='col' class='labelNum'>"+ yards +"</th>");
+                yardsIn += yards;
+            }
+            $(".yards").append("<th scope='col' class='in'>"+ yardsIn +"</th>");
+            for(let i = 9; i < 18; i++){
+                let yards = mycourse.data.holes[i].teeBoxes[tee].yards;
+                $(".yards").append("<th scope='col' class='labelNum'>"+ yards +"</th>");
+                yardsOut += yards;
+            }
+            $(".yards").append("<th scope='col' class='in'>"+ yardsOut +"</th>");
+            $(".yards").append("<th scope='col' class='total'>"+ (yardsIn + yardsOut) +"</th>");
+
+            $(".par").append("<th scope='col'>Par</th>");
+            for(let i = 0; i < 9; i++){
+                let par = mycourse.data.holes[i].teeBoxes[tee].par;
+                $(".par").append("<th scope='col' class='labelNum'>"+ par +"</th>");
+                parIn += par;
+            }
+            $(".par").append("<th scope='col' class='in'>"+ parIn +"</th>");
+            for(let i = 9; i < 18; i++){
+                let par = mycourse.data.holes[i].teeBoxes[tee].par;
+                $(".par").append("<th scope='col' class='labelNum'>"+ par +"</th>");
+                parOut += par;
+            }
+            $(".par").append("<th scope='col' class='in'>"+ parOut +"</th>");
+            $(".par").append("<th scope='col' class='total'>"+ (parIn + parOut) +"</th>");
+
+
+            $(".handicap").append("<th scope='col'>Handicap</th>");
+            for(let i = 0; i < 9; i++){
+                let hcp = mycourse.data.holes[i].teeBoxes[tee].hcp;
+                $(".handicap").append("<th scope='col' class='labelNum'>"+ hcp +"</th>");
+            }
+            $(".handicap").append("<th scope='col' class='in'></th>");
+            for(let i = 9; i < 18; i++){
+                let hcp = mycourse.data.holes[i].teeBoxes[tee].hcp;
+                $(".handicap").append("<th scope='col' class='labelNum'>"+ hcp +"</th>");
+            }
+            $(".handicap").append("<th scope='col' class='in'></th>");
+            $(".handicap").append("<th scope='col' class='total'></th>");
+
+        }
+    };
+    xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + id, true);
+    xhttp.send();
 }
-function getPar(){
-    for(let hole = 0; hole < 9; hole++){
-        // let xhttp = new XMLHttpRequest();
-        // xhttp.onreadystatechange = function () {
-        //     if(this.readyState === 4 && this.status === 200){
-        //         let mycourse = JSON.parse(this.responseText);
-        //         console.log(mycourse);
-        //         let yards = mycourse.data.holes[hole].teeBoxes[tee].yards;
-        //         console.log("Yards: " + yards);
-        //         $(".yards").append("<th scope='col'>"+ yards +"</th>")
-        //     }
-        // };
-        // xhttp.open("GET", "https://golf-courses-api.herokuapp.com/courses/" + id, true);
-        // xhttp.send();
-        $(".par").append("<th scope='col'>0</th>");
-    }
-    $(".par").append("<th scope='col' class='in'></th>");
-    for(let hole = 9; hole < 18; hole++){
-        $(".par").append("<th scope='col'>0</th>");
-    }
-}
+
 function addPlayer() {
-    $(".table").append("<tbody class='player player"+ counter + "'>\n" +
-        "        <tr>\n" +
-        "            <td><input placeholder='Player name'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput inP"+ counter +"'></td>\n" +
-        "            <td><span class='inScore'>0</span></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
-        "            <td class='scoreBox'><input class='scoreInput outP"+ counter +"'></td>\n" +
-        "            <td><span class='outScore'>0</span></td>\n" +
-        "            <td><span class='totalScore'>0</span></td>\n" +
+    $(".table").append("<tbody class='player'>\n" +
+        "        <tr class='player"+ counter +"'>\n" +
+        "            <td class='name'><input placeholder='Player name'></td>\n"+
         "        </tr>\n" +
         "    </tbody>");
-    $(".inScore").parent().css("background-color","lightgray");
-    $(".outScore").parent().css("background-color", "lightgray");
-    $(".totalScore").parent().css("background-color", "#AEA7F0");
+    let player = ".player" + counter;
+    for(let i = 1; i < 10; i++){
+        $(`${player}`).append("<td class='scoreBox'><input class='scoreInput p"+ counter +"h"+ i +"'></td>");
+    }
+    $(player).append("<td class='inScore'>0</td>");
+    for(let i = 10; i < 19; i++){
+        $(".player" + counter).append("<td class='scoreBox'><input class='scoreInput p"+ counter +"h"+ i +"'></td>");
+    }
+    $(player).append("<td class='outScore'></td>" +
+                                  "<td class='totalScore total'>0</td>");
     counter++;
+    numPlayers++;
+    $("input").keyup(function(event){
+        getScores()
+    });
 }
-function deletePlayer(){
-    $("tbody").append("<i class='fas fa-times-circle'></i>");
+
+function deleteToggle(){
+    if(deleteSwitch === 0) {
+        $(".name").append("<i class='fas fa-times-circle' onclick='deletePlayer(this)'></i>");
+        $(".edit").html("Stop Editing");
+        deleteSwitch = 1;
+    }
+    else{
+        $(".name i").remove();
+        deleteSwitch = 0;
+        $(".edit").html("Edit Players");
+    }
     // addEventListener("click", $(".player").remove());
 }
-//
-//
-// function addScore(playerId){
-//     let myscore = 0;
-//     //parse player number out of id
-//     for(let i = 0;){
-//         let scoreitem = $("#p" + p + "h" + i).val();
-//         myscore += scoreitem;
-//     }
-//     return myscore;
-//
-//
-// }
+
+
+function deletePlayer(element){
+    $(element).parent().parent().remove();
+}
+
+$("input").keyup(function(event){
+    getScores()
+});
+
+function getScores(){
+    console.log(numPlayers);
+    for(let player = 1; player < numPlayers + 1; player++){
+        let inScore = 0;
+        let outScore = 0;
+        for(let hole = 1; hole < 10; hole++){
+            let playerId = ".p" + player + "h" + hole;
+            let num = $(playerId).val();
+            inScore += Number(num);
+        }
+        for(let hole = 10; hole < 19; hole++){
+            let playerId = ".p" + player + "h" + hole;
+            outScore += Number($(playerId).val());
+        }
+        let totalScore = inScore + outScore;
+        let whichPlayer = ".player" + player;
+        $(`${whichPlayer} .inScore`).html(inScore);
+        $(`${whichPlayer} .outScore`).html(outScore);
+        $(`${whichPlayer} .totalScore`).html(totalScore);
+    }
+}
+
+
+

@@ -14,18 +14,6 @@
 </head>
 <body>
 
-<!--<div class="dropdown">-->
-    <!--<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-        <!--Dropdown button-->
-    <!--</button>-->
-    <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-        <!--<a class="dropdown-item" href="#">Action</a>-->
-        <!--<a class="dropdown-item" href="#">Another action</a>-->
-        <!--<a class="dropdown-item" href="#">Something else here</a>-->
-    <!--</div>-->
-<!--</div>-->
-
-
 <select id="courseSelect" onchange="loadCourse(this.value)">
     <option value="" selected hidden>Choose Course</option>
 </select>
@@ -39,65 +27,63 @@
 
 <table class="table">
     <thead>
-        <tr class="yards">
-            <th scope="col">Yards</th>
-        </tr>
-        <tr class="par">
-            <th scope="col">Par</th>
-        </tr>
+        <tr class="yards"></tr>
+        <tr class="par"></tr>
+        <tr class="handicap"></tr>
+
         <tr class="hole">
             <th scope="col">Hole</th>
-            <th scope="col" class="holeNum">1</th>
-            <th scope="col" class="holeNum">2</th>
-            <th scope="col" class="holeNum">3</th>
-            <th scope="col" class="holeNum">4</th>
-            <th scope="col" class="holeNum">5</th>
-            <th scope="col" class="holeNum">6</th>
-            <th scope="col" class="holeNum">7</th>
-            <th scope="col" class="holeNum">8</th>
-            <th scope="col" class="holeNum">9</th>
+            <th scope="col" class="labelNum">1</th>
+            <th scope="col" class="labelNum">2</th>
+            <th scope="col" class="labelNum">3</th>
+            <th scope="col" class="labelNum">4</th>
+            <th scope="col" class="labelNum">5</th>
+            <th scope="col" class="labelNum">6</th>
+            <th scope="col" class="labelNum">7</th>
+            <th scope="col" class="labelNum">8</th>
+            <th scope="col" class="labelNum">9</th>
             <th scope="col" class="in">In</th>
-            <th scope="col" class="holeNum">10</th>
-            <th scope="col" class="holeNum">11</th>
-            <th scope="col" class="holeNum">12</th>
-            <th scope="col" class="holeNum">13</th>
-            <th scope="col" class="holeNum">14</th>
-            <th scope="col" class="holeNum">15</th>
-            <th scope="col" class="holeNum">16</th>
-            <th scope="col" class="holeNum">17</th>
-            <th scope="col" class="holeNum">18</th>
+            <th scope="col" class="labelNum">10</th>
+            <th scope="col" class="labelNum">11</th>
+            <th scope="col" class="labelNum">12</th>
+            <th scope="col" class="labelNum">13</th>
+            <th scope="col" class="labelNum">14</th>
+            <th scope="col" class="labelNum">15</th>
+            <th scope="col" class="labelNum">16</th>
+            <th scope="col" class="labelNum">17</th>
+            <th scope="col" class="labelNum">18</th>
             <th scope="col" class="out">Out</th>
             <th scope="col" class="total">Total</th>
         </tr>
     </thead>
-    <tbody class="player player1">
-        <tr>
-            <td><input placeholder="Player name"></td>
-            <td class="scoreBox"><input class="scoreInput inP1"></td>
-            <td class="scoreBox"><input class="scoreInput inP1"></td>
-            <td class="scoreBox"><input class="scoreInput inP1"></td>
-            <td class="scoreBox"><input class="scoreInput inP1"></td>
-            <td class="scoreBox"><input class="scoreInput inP1"></td>
-            <td class="scoreBox"><input class="scoreInput inP1"></td>
-            <td class="scoreBox"><input class="scoreInput inP1"></td>
-            <td class="scoreBox"><input class="scoreInput inP1"></td>
-            <td class="scoreBox"><input class="scoreInput inP1"></td>
-            <td class="inSP1"><span class='inScore'>0</span></td>
-            <td class="scoreBox"><input class="scoreInput outP1"></td>
-            <td class="scoreBox"><input class="scoreInput outP1"></td>
-            <td class="scoreBox"><input class="scoreInput outP1"></td>
-            <td class="scoreBox"><input class="scoreInput outP1"></td>
-            <td class="scoreBox"><input class="scoreInput outP1"></td>
-            <td class="scoreBox"><input class="scoreInput outP1"></td>
-            <td class="scoreBox"><input class="scoreInput outP1"></td>
-            <td class="scoreBox"><input class="scoreInput outP1"></td>
-            <td class="scoreBox"><input class="scoreInput outP1"></td>
-            <td class="outSP1"><span class='outScore'>0</span></td>
-            <td class="totalSP1"><span class="totalScore">0</span></td>
+    <tbody class="player">
+        <tr class="player1">
+            <td class="name"><input placeholder="Player name"></td>
+            <td class="scoreBox"><input class="scoreInput p1h1"></td>
+            <td class="scoreBox"><input class="scoreInput p1h2"></td>
+            <td class="scoreBox"><input class="scoreInput p1h3"></td>
+            <td class="scoreBox"><input class="scoreInput p1h4"></td>
+            <td class="scoreBox"><input class="scoreInput p1h5"></td>
+            <td class="scoreBox"><input class="scoreInput p1h6"></td>
+            <td class="scoreBox"><input class="scoreInput p1h7"></td>
+            <td class="scoreBox"><input class="scoreInput p1h8"></td>
+            <td class="scoreBox"><input class="scoreInput p1h9"></td>
+            <td class="inScore">0</td>
+            <td class="scoreBox"><input class="scoreInput p1h10"></td>
+            <td class="scoreBox"><input class="scoreInput p1h11"></td>
+            <td class="scoreBox"><input class="scoreInput p1h12"></td>
+            <td class="scoreBox"><input class="scoreInput p1h13"></td>
+            <td class="scoreBox"><input class="scoreInput p1h14"></td>
+            <td class="scoreBox"><input class="scoreInput p1h15"></td>
+            <td class="scoreBox"><input class="scoreInput p1h16"></td>
+            <td class="scoreBox"><input class="scoreInput p1h17"></td>
+            <td class="scoreBox"><input class="scoreInput p1h18"></td>
+            <td class="outScore"></td>
+            <td class="totalScore total">0</td>
         </tr>
     </tbody>
 </table>
 <button onclick="addPlayer()">Add Another Player</button>
-<button onclick="deletePlayer(this)">Delete A Player</button>
+<button class="edit" onclick="deleteToggle()">Edit Players</button>
 </body>
 </html>

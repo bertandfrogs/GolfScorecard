@@ -1,6 +1,14 @@
 .table td, .table th{
     border: 1px solid #dee2e6;
 }
+.name{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+i{
+    padding-right: 5px;
+}
 .scoreBox{
     width: 5%;
     padding: 20px;
@@ -17,27 +25,30 @@ input:focus{
     /*margin: auto;*/
     text-align: center;
 }
-.holeNum{
+.labelNum{
     width: 5%;
     text-align: center;
     padding: 20px;
 }
 .yards{
-    text-align: center;
     background-color: #aea8f0;
 }
 .par{
-    text-align: center;
-    background-color: #84cffb;
+    background-color: #7cbbff;
+}
+.handicap{
+    background-color: #76BDE1;
 }
 .hole{
     background-color: #70c0c2;
 }
-.inSP1, .in, .outSP1, .out{
+.inScore, .in, .out, .outScore{
     background-color: lightgray;
+    text-align: center;
 }
 .totalSP1, .total{
     background-color: #AEA7F0;
+    text-align: center;
 }
 .inScore, .outScore{
     padding: 3px;
